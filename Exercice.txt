@@ -1,0 +1,125 @@
+
+My Courses
+Calendar
+Leaderboard
+Slack
+Blog
+Learn More
+Full Stack Python
+Full Stack JavaScript
+Summer Camp
+About DI
+Home page
+Our Courses
+Dates & Tuition
+Blog
+Terms & Conditions
+Privacy
+ Full Stack Coding Bootcamp - PHP - Angular - Full Time - 2023 Angular Intermediate Spring Boot 2 & Spring WebFlux Daily Challenge:Retrieve a JSON object
+Daily Challenge:Retrieve A JSON Object
+Last updated : January 17th 2023
+
+
+What We Will Learn:
+Retrieve a JSON object using Angular
+
+
+Instructions
+Create a new Spring Boot 2 project using the Spring Initializer with the WebFlux and Lombok dependencies.
+
+Create a simple REST controller with a single endpoint that returns a Flux of JSON objects.
+
+@RestController
+@RequestMapping("/api")
+public class MyController {
+    @GetMapping("/data")
+    public Flux<Map<String, Object>> getData() {
+        Map<String, Object> json1 = new HashMap<>();
+        json1.put("key1", "value1");
+        json1.put("key2", "value2");
+        Map<String, Object> json2 = new HashMap<>();
+        json2.put("key3", "value3");
+        json2.put("key4", "value4");
+        return Flux.just(json1, json2);
+    }
+}
+Run the Spring Boot application and test the endpoint using a tool like Postman to ensure it returns the expected JSON objects.
+
+Create a new Angular application using the Angular CLI.
+
+In the Angular application, create a service that makes a GET request to the Spring Boot endpoint using the HttpClient module.
+
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+
+@Injectable({
+  providedIn: "root",
+})
+export class MyService {
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<Map<string, Object>[]> {
+    return this.http.get<Map<string, Object>[]>("/api/data");
+  }
+}
+In the Angular application, create a component that displays the JSON objects returned by the service.
+
+import { Component, OnInit } from "@angular/core";
+import { MyService } from "./my.service";
+
+@Component({
+  selector: "app-root",
+  template: `
+    <div *ngFor="let json of jsonData">
+      <div *ngFor="let key of keys(json)">{{ key }}: {{ json[key] }}</div>
+    </div>
+  `,
+})
+export class MyComponent implements OnInit {
+  jsonData: Map<string, Object>[];
+
+  constructor(private myService: MyService) {}
+
+  ngOnInit() {
+    this.myService
+      .getData()
+      .subscribe((jsonData) => (this.jsonData = jsonData));
+  }
+  keys(json: Map<string, Object>) {
+    return Object.keys(json);
+  }
+}
+Run the Angular application and ensure the JSON objects returned by the Spring Boot endpoint are displayed on the page.
+
+
+
+More Info
+Duration (approx)	Difficulty
+30 min	⭐⭐
+
+
+Submit Your Daily Challenge :
+Don’t forget to push to Github
+
+Submit your Daily Challenge to DI Learning
+
+
+
+
+Feedback
+Tell us what you thought about the chapter: Daily Challenge:Retrieve a JSON object
+
+
+© 2020 Developers Institute. All Rights Reserved.
+
+ 
+ 
+ 
+Spring Boot 2 & Spring WebFlux
+58% Complete
+Course Notes
+Exercises
+Daily Challenge
+Daily Challenge:Retrieve a JSON object
+10 XP  
